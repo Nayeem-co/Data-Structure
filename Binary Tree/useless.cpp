@@ -1,0 +1,98 @@
+#include<iostream>
+#include <bits/stdc++.h>
+using namespace std;
+
+
+class node{
+	public:
+	char data;
+	node* left;
+	node* right;
+};
+
+/* Prototypes for utility functions */
+node* newNode(char data);
+
+
+node* buildTree(char in[], char pre[], int inStrt, int inEnd){
+
+	static int preIndex = 0;
+
+	if (inStrt > inEnd)
+		return NULL;
+
+	node* tNode = newNode(pre[preIndex++]);
+
+	if (inStrt == inEnd)
+		return tNode;
+
+	int inIndex = search(in, inStrt, inEnd, tNode->data);
+
+	tNode->left = buildTree(in, pre, inStrt, inIndex - 1);
+	tNode->right = buildTree(in, pre, inIndex + 1, inEnd);
+
+	return tNode;
+}
+
+int search(char arr[], int strt, int end, char value){
+
+	int i;
+	for (i = strt; i <= end; i++)
+	{
+		if (arr[i] == value)
+			return i;
+	}
+}
+
+
+node* newNode(char data){
+	node* Node = new node();
+	Node->data = data;
+	Node->left = NULL;
+	Node->right = NULL;
+
+	return (Node);
+}
+
+/* This function is here just to test buildTree() */
+void printInorder(node* node)
+{
+	if (node == NULL)
+		return;
+
+	/* first recur on left child */
+	printInorder(node->left);
+
+	/* then print the data of node */
+	cout<<node->data<<" ";
+
+	/* now recur on right child */
+	printInorder(node->right);
+}
+
+void postOderPrint(node * root){
+    if(root == NULL){
+        return;
+    }
+    postOderPrint(root->left);
+    postOderPrint(root->right);
+    cout<<root->data<<" ";
+}
+
+/* Driver code */
+int main()
+{
+	char in[] = { 'D', 'B', 'E', 'A', 'F', 'C', 'G' };
+	char pre[] = { 'A', 'B', 'D', 'E', 'C', 'F', 'G' };
+	int len = sizeof(in) / sizeof(in[0]);
+	node* root = buildTree(in, pre, 0, len - 1);
+
+	/* Let us test the built tree by
+	printing Inorder traversal */
+	cout << "Inorder traversal of the constructed tree is \n";
+	printInorder(root);
+    cout<<endl;
+    postOderPrint(root);
+}
+
+// This is code is contributed by rathbhupendra
