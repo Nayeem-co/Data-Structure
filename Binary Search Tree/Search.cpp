@@ -14,6 +14,34 @@ public:
     }
 };
 
+
+void preoderPrint(node * root){
+    if(root == NULL){
+        return;
+    }
+    cout<<root->data<<" ";
+    preoderPrint(root->left);
+    preoderPrint(root->right);
+}
+
+void inoderprint(node * root){
+    if(root == NULL){
+        return;
+    }
+    inoderprint(root->left);
+    cout<<root->data<<" ";
+    inoderprint(root->right);
+}
+
+void postoderPrint(node * root){
+    if(root == NULL){
+        return;
+    }
+    postoderPrint(root->left);
+    postoderPrint(root->right);
+    cout<<root->left<<" ";
+}
+
 node * Search(node * root, int key){
     if(root == NULL){
         return NULL;

@@ -2,8 +2,7 @@
 using namespace std;
 
 class node {
-
-public:
+    public:
     int data;
     node * left;
     node * right;
@@ -32,7 +31,6 @@ node * deleteBST(node * root, int key){
     else if(key > root->data){
         root->right = deleteBST(root->right,key);
     }
-
     else{
         if(root->left == NULL){
             node* temp = root->right;
